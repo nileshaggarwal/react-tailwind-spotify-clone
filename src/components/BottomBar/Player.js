@@ -16,7 +16,6 @@ function Player() {
 
   const dispatch = useDispatch();
   const { current, sidebar } = useSelector((state) => state.player);
-  console.log(current?.metadata?.animation_url);
   const [audio, state, controls, ref] = useAudio({
     src: current?.metadata?.animation_url,
   });
@@ -39,7 +38,7 @@ function Player() {
     if (state.volume >= 0.33 && state.volume < 0.66) return "volumeNormal";
     return "volumeFull";
   }, [state.volume, state.muted]);
-
+  console.log(current);
   return (
     <div className="flex px-4 justify-between items-center h-full">
       <div className="min-w-[11.25rem] w-[30%]">
@@ -48,7 +47,7 @@ function Player() {
             <div className="flex items-center mr-3">
               {!sidebar && (
                 <div className="w-14 h-14 mr-3 relative group flex-shrink-0">
-                  <img src={current.image} alt="" />
+                  <img src={current?.metadata?.image} alt="" />
                   <button
                     onClick={() => dispatch(setSidebar(true))}
                     className="w-6 h-6 bg-black opacity-0 group-hover:opacity-60 hover:!opacity-100 hover:scale-[1.06] rotate-90 rounded-full absolute top-1 right-1 flex items-center justify-center"
@@ -60,7 +59,7 @@ function Player() {
               <div>
                 <h6 className="text-sm line-clamp-1">{current.title}</h6>
                 <p className="text-[0.688rem] text-white text-opacity-70">
-                  {current.artist}
+                  {current?.metadata?.name}
                 </p>
               </div>
             </div>
