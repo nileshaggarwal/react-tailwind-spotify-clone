@@ -9,7 +9,12 @@ function SidebarCover() {
   return (
     <div className="pt-[100%] relative bg-black group">
       <img
-        src={current?.metadata?.image}
+        src={
+          current.metadata.image &&
+          current.metadata.image.slice(0, 5) === "ipfs:"
+            ? `https://ipfs.io/ipfs/${current.metadata.image.slice(5)}`
+            : current.metadata.image
+        }
         className="w-full h-full object-cover absolute top-0 left-0"
         alt=""
       />

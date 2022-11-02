@@ -40,6 +40,8 @@ function Home() {
     }
   }, []);
 
+  console.log(list);
+
   useEffect(() => {
     const option = {
       root: null,

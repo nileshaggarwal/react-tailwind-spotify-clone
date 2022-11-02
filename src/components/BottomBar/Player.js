@@ -17,7 +17,10 @@ function Player() {
   const dispatch = useDispatch();
   const { current, sidebar } = useSelector((state) => state.player);
   const [audio, state, controls, ref] = useAudio({
-    src: current?.metadata?.animation_url,
+    src:
+      current?.metadata?.animation_url.slice(0, 5) === "ipfs:"
+        ? `https://ipfs.io/ipfs/${current?.metadata?.animation_url.slice(5)}`
+        : current?.metadata?.animation_url,
   });
 
   useEffect(() => {
@@ -47,7 +50,17 @@ function Player() {
             <div className="flex items-center mr-3">
               {!sidebar && (
                 <div className="w-14 h-14 mr-3 relative group flex-shrink-0">
-                  <img src={current?.metadata?.image} alt="" />
+                  <img
+                    src={
+                      current.metadata.image &&
+                      current.metadata.image.slice(0, 5) === "ipfs:"
+                        ? `https://ipfs.io/ipfs/${current.metadata.image.slice(
+                            5
+                          )}`
+                        : current.metadata.image
+                    }
+                    alt=""
+                  />
                   <button
                     onClick={() => dispatch(setSidebar(true))}
                     className="w-6 h-6 bg-black opacity-0 group-hover:opacity-60 hover:!opacity-100 hover:scale-[1.06] rotate-90 rounded-full absolute top-1 right-1 flex items-center justify-center"

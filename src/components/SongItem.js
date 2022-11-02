@@ -41,7 +41,12 @@ function SongItem({ item }) {
     >
       <div className="pt-[100%] relative mb-4">
         <img
-          src={item.metadata.image}
+          alt=""
+          src={
+            item.metadata.image && item.metadata.image.slice(0, 5) === "ipfs:"
+              ? `https://ipfs.io/ipfs/${item.metadata.image.slice(5)}`
+              : item.metadata.image
+          }
           className={`absolute inset-0 object-cover w-full h-full }`}
         />
         <button
